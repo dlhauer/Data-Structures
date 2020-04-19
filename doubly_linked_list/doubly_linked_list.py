@@ -41,48 +41,72 @@ class DoublyLinkedList:
 
     def add_to_head(self, value):
         prev_head = self.head
-        self.head = ListNode(value, None, prev_head)
-        prev_head.prev = self.head
+        node = ListNode(value, None, prev_head)
+        self.head = node
+        if prev_head:
+            prev_head.prev = self.head
+        if not self.tail:
+            self.tail = node
         self.length += 1
 
     def remove_from_head(self):
+        if not self.head:
+            return
         prev_head = self.head
         self.head = self.head.next
-        self.head.prev = None
+        if self.head:
+            self.head.prev = None
+            if not self.head.next:
+                self.tail = self.head
+        else:
+            self.tail = None
         prev_head.next = None
         self.length -= 1
         return prev_head.value
 
     def add_to_tail(self, value):
         prev_tail = self.tail
-        self.tail = ListNode(value, prev_tail, None)
-        prev_tail.next = self.tail
+        node = ListNode(value, prev_tail, None)
+        self.tail = node
+        if prev_tail:
+            prev_tail.next = self.tail
+        if not self.head:
+            self.head = node
         self.length += 1
 
     def remove_from_tail(self):
+        if not self.tail:
+            return
+        self.length -= 1
         prev_tail = self.tail
         self.tail = self.tail.prev
-        self.tail.next = None
+        if self.tail:
+            self.tail.next = None
+            if not self.tail.prev:
+                self.head = self.tail
+        else:
+            self.head = None
         prev_tail.prev = None
-        self.length -= 1
         return prev_tail.value
 
     def move_to_front(self, node):
-        if not node or not isinstance(node, ListNode):
+        if not node or not isinstance(node, ListNode) or node.prev == None:
             return
         prev_head = self.head
         node.prev.next = node.next
-        node.next.prev = node.prev
+        if node.next:
+            node.next.prev = node.prev
         self.head = node
         self.head.prev = None
         self.head.next = prev_head
         prev_head.prev = self.head
 
     def move_to_end(self, node):
-        if not node or not isinstance(node, ListNode):
+        if not node or not isinstance(node, ListNode) or node.next == None:
             return
         prev_tail = self.tail
-        node.prev.next = node.next
+        if node.prev:
+            node.prev.next = node.next
         node.next.prev = node.prev
         self.tail = node
         self.tail.next = None
@@ -92,7 +116,10 @@ class DoublyLinkedList:
     def delete(self, node):
         if not node or not isinstance(node, ListNode):
             return
-        if node.prev == None:
+        if node.prev == None and node.next == None:
+            self.head = None
+            self.tail = None
+        elif node.prev == None:
             self.head = node.next
             self.head.prev = None
             node.next = None
@@ -116,3 +143,14 @@ class DoublyLinkedList:
             max_val = max(max_val, node.value)
             node = node.next
         return max_val
+
+
+node = ListNode('dan')
+lizt = DoublyLinkedList(node)
+lizt.add_to_head('sam')
+lizt.remove_from_head()
+lizt.remove_from_head()
+lizt.remove_from_head()
+lizt.add_to_tail('hau')
+print(lizt.head.value, lizt.tail.value, "\n")
+lizt.print_list('forward')
