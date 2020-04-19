@@ -53,22 +53,19 @@ class DoublyLinkedList:
         self.length -= 1
         return prev_head.value
 
-    """Wraps the given value in a ListNode and inserts it 
-    as the new tail of the list. Don't forget to handle 
-    the old tail node's next pointer accordingly."""
-
     def add_to_tail(self, value):
         prev_tail = self.tail
         self.tail = ListNode(value, prev_tail, None)
         prev_tail.next = self.tail
         self.length += 1
 
-    """Removes the List's current tail node, making the 
-    current tail's previous node the new tail of the List.
-    Returns the value of the removed Node."""
-
     def remove_from_tail(self):
-        pass
+        prev_tail = self.tail
+        self.tail = self.tail.prev
+        self.tail.next = None
+        prev_tail.prev = None
+        self.length -= 1
+        return prev_tail.value
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
@@ -98,9 +95,11 @@ node = ListNode('dan')
 lizt = DoublyLinkedList(node)
 lizt.add_to_head('hau')
 lizt.add_to_head('sam')
-print(lizt.length)
+# print(lizt.length)
 # lizt.print_list('forward')
 val = lizt.remove_from_head()
 lizt.add_to_tail('lil')
-# lizt.print_list('forward')
-# lizt.print_list('rev')
+val = lizt.remove_from_tail()
+lizt.print_list('forward')
+lizt.print_list('rev')
+print(lizt.length)
