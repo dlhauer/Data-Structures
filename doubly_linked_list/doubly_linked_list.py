@@ -96,6 +96,8 @@ class DoublyLinkedList:
         node.prev.next = node.next
         if node.next:
             node.next.prev = node.prev
+        else:
+            self.tail = node.prev
         self.head = node
         self.head.prev = None
         self.head.next = prev_head
@@ -107,6 +109,8 @@ class DoublyLinkedList:
         prev_tail = self.tail
         if node.prev:
             node.prev.next = node.next
+        else:
+            self.head = node.next
         node.next.prev = node.prev
         self.tail = node
         self.tail.next = None
@@ -132,6 +136,7 @@ class DoublyLinkedList:
             node.next.prev = node.prev
             node.next = None
             node.prev = None
+        self.length -= 1
 
     def get_max(self):
         node = self.head
@@ -143,14 +148,3 @@ class DoublyLinkedList:
             max_val = max(max_val, node.value)
             node = node.next
         return max_val
-
-
-node = ListNode('dan')
-lizt = DoublyLinkedList(node)
-lizt.add_to_head('sam')
-lizt.remove_from_head()
-lizt.remove_from_head()
-lizt.remove_from_head()
-lizt.add_to_tail('hau')
-print(lizt.head.value, lizt.tail.value, "\n")
-lizt.print_list('forward')
