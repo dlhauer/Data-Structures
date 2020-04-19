@@ -39,12 +39,11 @@ class DoublyLinkedList:
             print(node.value)
             node = node.next
 
-    """Wraps the given value in a ListNode and inserts it 
-    as the new head of the list. Don't forget to handle 
-    the old head node's previous pointer accordingly."""
-
     def add_to_head(self, value):
-        pass
+        prev_head = self.head
+        self.head = ListNode(value, None, prev_head)
+        prev_head.prev = self.head
+        self.length += 1
 
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
@@ -89,3 +88,10 @@ class DoublyLinkedList:
 
     def get_max(self):
         pass
+
+
+node = ListNode('dan')
+lizt = DoublyLinkedList(node)
+lizt.add_to_head('hau')
+lizt.add_to_head('sam')
+lizt.print_list()
