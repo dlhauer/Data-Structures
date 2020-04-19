@@ -106,23 +106,13 @@ class DoublyLinkedList:
             node.next = None
             node.prev = None
 
-    """Returns the highest value currently in the list"""
-
     def get_max(self):
-        pass
-
-
-node = ListNode('dan')
-lizt = DoublyLinkedList(node)
-lizt.add_to_head('hau')
-lizt.add_to_head('sam')
-# print(lizt.length)
-# lizt.print_list('forward')
-val = lizt.remove_from_head()
-lizt.add_to_tail('lil')
-val = lizt.remove_from_tail()
-node = lizt.tail
-lizt.delete(node)
-lizt.print_list('forward')
-lizt.print_list('rev')
-# print(lizt.length)
+        node = self.head
+        max_val = self.head.value
+        while(node):
+            if type(max_val) != type(node.value):
+                print("Brah, I can't compare values of different types.\n")
+                return
+            max_val = max(max_val, node.value)
+            node = node.next
+        return max_val
