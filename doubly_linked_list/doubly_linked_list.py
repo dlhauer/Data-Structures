@@ -45,19 +45,21 @@ class DoublyLinkedList:
         prev_head.prev = self.head
         self.length += 1
 
-    """Removes the List's current head node, making the
-    current head's next node the new head of the List.
-    Returns the value of the removed Node."""
-
     def remove_from_head(self):
-        pass
+        prev_head = self.head
+        self.head = self.head.next
+        prev_head.next = None
+        return prev_head.value
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly."""
 
     def add_to_tail(self, value):
-        pass
+        prev_tail = self.tail
+        self.tail = ListNode(value, prev_tail, None)
+        prev_tail.next = self.tail
+        self.length += 1
 
     """Removes the List's current tail node, making the 
     current tail's previous node the new tail of the List.
@@ -94,4 +96,8 @@ node = ListNode('dan')
 lizt = DoublyLinkedList(node)
 lizt.add_to_head('hau')
 lizt.add_to_head('sam')
+val = lizt.remove_from_head()
+# lizt.print_list('forward')
+lizt.add_to_tail('lil')
+# lizt.print_list('forward')
 lizt.print_list('rev')
