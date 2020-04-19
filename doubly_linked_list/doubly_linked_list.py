@@ -67,17 +67,26 @@ class DoublyLinkedList:
         self.length -= 1
         return prev_tail.value
 
-    """Removes the input node from its current spot in the 
-    List and inserts it as the new head node of the List."""
-
     def move_to_front(self, node):
-        pass
+        prev_head = self.head
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        self.head = node
+        self.head.prev = None
+        self.head.next = prev_head
+        prev_head.prev = self.head
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
 
     def move_to_end(self, node):
-        pass
+        prev_tail = self.tail
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        self.tail = node
+        self.tail.next = None
+        self.tail.prev = prev_tail
+        prev_tail.next = self.tail
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
@@ -97,9 +106,11 @@ lizt.add_to_head('hau')
 lizt.add_to_head('sam')
 # print(lizt.length)
 # lizt.print_list('forward')
-val = lizt.remove_from_head()
+# val = lizt.remove_from_head()
 lizt.add_to_tail('lil')
-val = lizt.remove_from_tail()
+# val = lizt.remove_from_tail()
+node = lizt.head.next
+lizt.move_to_end(node)
 lizt.print_list('forward')
 lizt.print_list('rev')
-print(lizt.length)
+# print(lizt.length)
