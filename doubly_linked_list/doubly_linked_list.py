@@ -48,7 +48,9 @@ class DoublyLinkedList:
     def remove_from_head(self):
         prev_head = self.head
         self.head = self.head.next
+        self.head.prev = None
         prev_head.next = None
+        self.length -= 1
         return prev_head.value
 
     """Wraps the given value in a ListNode and inserts it 
@@ -96,8 +98,9 @@ node = ListNode('dan')
 lizt = DoublyLinkedList(node)
 lizt.add_to_head('hau')
 lizt.add_to_head('sam')
-val = lizt.remove_from_head()
+print(lizt.length)
 # lizt.print_list('forward')
+val = lizt.remove_from_head()
 lizt.add_to_tail('lil')
 # lizt.print_list('forward')
-lizt.print_list('rev')
+# lizt.print_list('rev')
