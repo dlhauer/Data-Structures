@@ -33,11 +33,11 @@ class DoublyLinkedList:
     def __len__(self):
         return self.length
 
-    def print_list(self):
-        node = self.head
+    def print_list(self, direction):
+        node = self.head if direction == 'forward' else self.tail
         while(node):
             print(node.value)
-            node = node.next
+            node = node.next if direction == 'forward' else node.prev
 
     def add_to_head(self, value):
         prev_head = self.head
@@ -94,4 +94,4 @@ node = ListNode('dan')
 lizt = DoublyLinkedList(node)
 lizt.add_to_head('hau')
 lizt.add_to_head('sam')
-lizt.print_list()
+lizt.print_list('rev')
