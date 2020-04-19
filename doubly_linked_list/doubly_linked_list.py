@@ -68,6 +68,8 @@ class DoublyLinkedList:
         return prev_tail.value
 
     def move_to_front(self, node):
+        if not node or not isinstance(node, ListNode):
+            return
         prev_head = self.head
         node.prev.next = node.next
         node.next.prev = node.prev
@@ -77,6 +79,8 @@ class DoublyLinkedList:
         prev_head.prev = self.head
 
     def move_to_end(self, node):
+        if not node or not isinstance(node, ListNode):
+            return
         prev_tail = self.tail
         node.prev.next = node.next
         node.next.prev = node.prev
@@ -86,7 +90,7 @@ class DoublyLinkedList:
         prev_tail.next = self.tail
 
     def delete(self, node):
-        if not node:
+        if not node or not isinstance(node, ListNode):
             return
         if node.prev == None:
             self.head = node.next
@@ -114,10 +118,10 @@ lizt.add_to_head('hau')
 lizt.add_to_head('sam')
 # print(lizt.length)
 # lizt.print_list('forward')
-# val = lizt.remove_from_head()
+val = lizt.remove_from_head()
 lizt.add_to_tail('lil')
-# val = lizt.remove_from_tail()
-node = lizt.tail.next
+val = lizt.remove_from_tail()
+node = lizt.tail
 lizt.delete(node)
 lizt.print_list('forward')
 lizt.print_list('rev')
