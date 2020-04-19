@@ -18,4 +18,4 @@ class Stack:
         return node
 
     def len(self):
-        return len(self.storage)
+        return self.size
