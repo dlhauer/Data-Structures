@@ -53,15 +53,15 @@ class BinarySearchTree:
             self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
-    def in_order_print(self):
+    def in_order_print(self, node):
         if not self.left and not self.right:
             print(self.value)
             return
         if self.left:
-            self.left.in_order_print()
+            self.left.in_order_print(node)
         print(self.value)
         if self.right:
-            self.right.in_order_print()
+            self.right.in_order_print(node)
 
     def bft_print(self, node):
         queue = Queue()
@@ -74,8 +74,6 @@ class BinarySearchTree:
                 queue.enqueue(temp_node.right)
             temp_node = queue.dequeue()
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative depth first traversal
     def dft_print(self, node):
         stack = Stack()
         temp_node = node
@@ -92,7 +90,11 @@ class BinarySearchTree:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        if not node:
+            return
+        print(node.value)
+        self.pre_order_dft(node.left)
+        self.pre_order_dft(node.right)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
@@ -112,4 +114,4 @@ tree.insert(4)
 # tree.for_each(times_two)
 # print(tree.value)
 # print(tree.value)
-tree.dft_print(tree)
+tree.pre_order_dft(tree)
