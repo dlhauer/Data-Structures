@@ -86,9 +86,6 @@ class BinarySearchTree:
             temp_node = stack.pop()
 
     # STRETCH Goals -------------------------
-    # Note: Research may be required
-
-    # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
         if not node:
             return
@@ -96,22 +93,9 @@ class BinarySearchTree:
         self.pre_order_dft(node.left)
         self.pre_order_dft(node.right)
 
-    # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
-
-
-def times_two(n):
-    return 2 * n
-
-
-tree = BinarySearchTree(8)
-tree.insert(3)
-tree.insert(10)
-tree.insert(1)
-tree.insert(9)
-tree.insert(4)
-# tree.for_each(times_two)
-# print(tree.value)
-# print(tree.value)
-tree.pre_order_dft(tree)
+        if not node:
+            return
+        self.post_order_dft(node.left)
+        self.post_order_dft(node.right)
+        print(node.value)
