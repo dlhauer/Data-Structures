@@ -11,7 +11,7 @@ class LRUCache:
 
     def get(self, key):
         node = self.storage.get(key)
-        if not node or (not node.next and not node.prev):
+        if not node:
             return None
         self.cache.move_to_end(node)
         return node.value
@@ -26,5 +26,10 @@ class LRUCache:
             self.storage.update({key: self.cache.tail})
         self.size = len(self.cache)
         if self.size > self.max:
+            head = self.cache.head
+            for key, node in self.storage.items():
+                if node == head:
+                    self.storage.pop(key, None)
+                    break
             self.cache.remove_from_head()
             self.size = len(self.cache)
