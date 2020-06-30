@@ -1,7 +1,7 @@
+from dll_stack import Stack
+from dll_queue import Queue
 import sys
 sys.path.append('../queue_and_stack')
-from dll_queue import Queue
-from dll_stack import Stack
 
 
 class BinarySearchTree:
@@ -10,48 +10,92 @@ class BinarySearchTree:
         self.left = None
         self.right = None
 
-    # Insert the given value into the tree
     def insert(self, value):
-        pass
+        node = BinarySearchTree(value)
+        if value < self.value:
+            if not self.left:
+                self.left = node
+            else:
+                self.left.insert(value)
+        else:
+            if not self.right:
+                self.right = node
+            else:
+                self.right.insert(value)
 
-    # Return True if the tree contains the value
-    # False if it does not
     def contains(self, target):
-        pass
+        if not self.value:
+            return False
+        if target == self.value:
+            return True
+        elif target < self.value:
+            if self.left:
+                return self.left.contains(target)
+            else:
+                return False
+        else:
+            if self.right:
+                return self.right.contains(target)
+            else:
+                return False
 
-    # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        max_val = self.value
+        if self.right:
+            max_val = self.right.get_max()
+        return max_val
 
-    # Call the function `cb` on the value of each node
-    # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        cb(self.value)
+        if self.left:
+            self.left.for_each(cb)
+        if self.right:
+            self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
-
-    # Print all the values in order from low to high
-    # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if not self.left and not self.right:
+            print(self.value)
+            return
+        if self.left:
+            self.left.in_order_print(node)
+        print(self.value)
+        if self.right:
+            self.right.in_order_print(node)
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        queue = Queue()
+        temp_node = node
+        while temp_node:
+            print(temp_node.value)
+            if temp_node.left:
+                queue.enqueue(temp_node.left)
+            if temp_node.right:
+                queue.enqueue(temp_node.right)
+            temp_node = queue.dequeue()
 
-    # Print the value of every node, starting with the given node,
-    # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        stack = Stack()
+        temp_node = node
+        while temp_node:
+            print(temp_node.value)
+            if temp_node.right:
+                stack.push(temp_node.right)
+            if temp_node.left:
+                stack.push(temp_node.left)
+            temp_node = stack.pop()
 
     # STRETCH Goals -------------------------
-    # Note: Research may be required
-
-    # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        if not node:
+            return
+        print(node.value)
+        self.pre_order_dft(node.left)
+        self.pre_order_dft(node.right)
 
-    # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        if not node:
+            return
+        self.post_order_dft(node.left)
+        self.post_order_dft(node.right)
+        print(node.value)
